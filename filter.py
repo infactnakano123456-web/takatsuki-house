@@ -204,8 +204,7 @@ def score_property(prop: dict, cfg: dict) -> dict:
         score += pts
         label = "（旧耐震基準）" if built_year < 1981 else ""
         reasons.append(f"築年: {built_year}年{label} → {'+' if pts >= 0 else ''}{pts}点")
-    elif not building_m2_check:
-        reasons.append("土地のみ（築年スコアなし）")
+    # 土地のみの場合は築年スコアなし（表示不要）
 
     # ─── 6. 接道・道路幅（+5 〜 -15点）───
     road_searchable = " ".join(filter(None, [
