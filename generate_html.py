@@ -70,6 +70,17 @@ def generate(cfg: dict):
 
     scored.sort(key=lambda x: (x[1]["is_excluded"], -x[1]["match_score"]))
 
+    # ── 重複排除（同一住所+価格+土地面積 → 最上位1件のみ残す）──
+    seen_keys = set()
+    deduped = []
+    for p, sc in scored:
+        key = (p.get("address", ""), p.get("price_man"), p.get("land_area_m2"))
+        if key not in seen_keys:
+            seen_keys.add(key)
+            deduped.append((p, sc))
+    dup_count = len(scored) - len(deduped)
+    scored = deduped
+
     # ── 物件一覧行 ──
     rows_html = []
     for p, sc in scored:
@@ -197,7 +208,7 @@ tr.hidden{{display:none}}
   <h3 id="score-card-title">スコア内訳</h3>
   <ul id="score-card-list"></ul>
 </div>
-<h1>JR高槻駅周辺 物件リスト（<span id="shown-count">{len(scored)}</span>件 / 全{len(scored)}件）</h1>
+<h1>JR高槻駅周辺 物件リスト（<span id="shown-count">{len(scored)}</span>件 / 全{len(scored)}件）<small style="color:#999;font-size:12px;font-weight:normal">　重複{dup_count}件を非表示</small></h1>
 
 <div id="search-bar">
   <label>キーワード</label>
