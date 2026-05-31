@@ -26,9 +26,10 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
 #chart-section h2{border:none;margin-top:0;cursor:default}
 .chart-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
 .tag{display:inline-flex;align-items:center;gap:4px;background:#e8f0fe;border:1px solid #4a90d9;border-radius:12px;padding:3px 10px;font-size:12px}
-.tag .rm{cursor:pointer;color:#c00;font-weight:bold;margin-left:2px}
+.tag .rm{cursor:pointer;color:#999;font-weight:bold;margin-left:2px;font-size:11px}
 .tag.city-tag{background:#fff3e0;border-color:#e67e00}
 #chart-container{position:relative;height:320px}
+.district-chart-wrap{background:#f8f8f8;border:1px solid #ddd;border-radius:6px;padding:12px;margin-bottom:16px}
 </style>
 </head>
 <body>
@@ -67,6 +68,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-三島江">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-三島江">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-三島江">三島江 <span class="rm" onclick="removeDistrictLine('三島江')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-三島江"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -138,6 +147,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-上土室">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>81.1万円/坪</strong>（国交省成約実績33件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-上土室">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-上土室">上土室 <span class="rm" onclick="removeDistrictLine('上土室')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-上土室"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -588,6 +605,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-上本町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>157.7万円/坪</strong>（国交省成約実績8件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-上本町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-上本町">上本町 <span class="rm" onclick="removeDistrictLine('上本町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-上本町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -724,6 +749,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-上牧北駅前町">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-上牧北駅前町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-上牧北駅前町">上牧北駅前町 <span class="rm" onclick="removeDistrictLine('上牧北駅前町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-上牧北駅前町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -793,6 +826,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-下田部町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>107.0万円/坪</strong>（国交省成約実績43件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-下田部町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-下田部町">下田部町 <span class="rm" onclick="removeDistrictLine('下田部町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-下田部町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -1398,6 +1439,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-中川町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>71.9万円/坪</strong>（国交省成約実績21件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-中川町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-中川町">中川町 <span class="rm" onclick="removeDistrictLine('中川町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-中川町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -1683,6 +1732,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-五領町">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-五領町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-五領町">五領町 <span class="rm" onclick="removeDistrictLine('五領町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-五領町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -1740,6 +1797,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-井尻">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>65.8万円/坪</strong>（国交省成約実績2件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-井尻">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-井尻">井尻 <span class="rm" onclick="removeDistrictLine('井尻')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-井尻"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -1797,6 +1862,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-京口町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>182.5万円/坪</strong>（国交省成約実績6件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-京口町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-京口町">京口町 <span class="rm" onclick="removeDistrictLine('京口町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-京口町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -1902,6 +1975,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-八丁西町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>198.3万円/坪</strong>（国交省成約実績11件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-八丁西町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-八丁西町">八丁西町 <span class="rm" onclick="removeDistrictLine('八丁西町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-八丁西町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -2067,6 +2148,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-八幡町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>170.5万円/坪</strong>（国交省成約実績31件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-八幡町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-八幡町">八幡町 <span class="rm" onclick="removeDistrictLine('八幡町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-八幡町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -2486,6 +2575,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-出丸町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>76.3万円/坪</strong>（国交省成約実績5件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-出丸町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-出丸町">出丸町 <span class="rm" onclick="removeDistrictLine('出丸町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-出丸町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -2579,6 +2676,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-別所中の町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>180.7万円/坪</strong>（国交省成約実績5件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-別所中の町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-別所中の町">別所中の町 <span class="rm" onclick="removeDistrictLine('別所中の町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-別所中の町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -2672,6 +2777,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-別所本町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>125.0万円/坪</strong>（国交省成約実績9件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-別所本町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-別所本町">別所本町 <span class="rm" onclick="removeDistrictLine('別所本町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-別所本町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -2841,6 +2954,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-前島">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-前島">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-前島">前島 <span class="rm" onclick="removeDistrictLine('前島')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-前島"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -2893,6 +3014,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-北大樋町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>105.0万円/坪</strong>（国交省成約実績18件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-北大樋町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-北大樋町">北大樋町 <span class="rm" onclick="removeDistrictLine('北大樋町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-北大樋町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -3268,6 +3397,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-北昭和台町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>51.2万円/坪</strong>（国交省成約実績18件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-北昭和台町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-北昭和台町">北昭和台町 <span class="rm" onclick="removeDistrictLine('北昭和台町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-北昭和台町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -3531,6 +3668,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-北柳川町">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-北柳川町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-北柳川町">北柳川町 <span class="rm" onclick="removeDistrictLine('北柳川町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-北柳川町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -3600,6 +3745,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-南大樋町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>139.6万円/坪</strong>（国交省成約実績10件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-南大樋町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-南大樋町">南大樋町 <span class="rm" onclick="removeDistrictLine('南大樋町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-南大樋町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -3774,6 +3927,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-南平台">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>64.3万円/坪</strong>（国交省成約実績110件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-南平台">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-南平台">南平台 <span class="rm" onclick="removeDistrictLine('南平台')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-南平台"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -5168,6 +5329,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-南庄所町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>134.6万円/坪</strong>（国交省成約実績7件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-南庄所町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-南庄所町">南庄所町 <span class="rm" onclick="removeDistrictLine('南庄所町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-南庄所町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -5306,6 +5475,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-南松原町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>160.6万円/坪</strong>（国交省成約実績19件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-南松原町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-南松原町">南松原町 <span class="rm" onclick="removeDistrictLine('南松原町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-南松原町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -5574,6 +5751,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-南芥川町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>158.1万円/坪</strong>（国交省成約実績3件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-南芥川町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-南芥川町">南芥川町 <span class="rm" onclick="removeDistrictLine('南芥川町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-南芥川町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -5643,6 +5828,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-古曽部町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>144.6万円/坪</strong>（国交省成約実績43件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-古曽部町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-古曽部町">古曽部町 <span class="rm" onclick="removeDistrictLine('古曽部町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-古曽部町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -6297,6 +6490,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-名神町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>93.2万円/坪</strong>（国交省成約実績4件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-名神町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-名神町">名神町 <span class="rm" onclick="removeDistrictLine('名神町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-名神町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -6399,6 +6600,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-唐崎中">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>51.9万円/坪</strong>（国交省成約実績5件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-唐崎中">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-唐崎中">唐崎中 <span class="rm" onclick="removeDistrictLine('唐崎中')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-唐崎中"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -6534,6 +6743,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-唐崎西">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>123.4万円/坪</strong>（国交省成約実績17件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-唐崎西">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-唐崎西">唐崎西 <span class="rm" onclick="removeDistrictLine('唐崎西')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-唐崎西"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -6778,6 +6995,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-土室町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>93.7万円/坪</strong>（国交省成約実績9件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-土室町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-土室町">土室町 <span class="rm" onclick="removeDistrictLine('土室町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-土室町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -6919,6 +7144,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-土橋町">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-土橋町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-土橋町">土橋町 <span class="rm" onclick="removeDistrictLine('土橋町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-土橋町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -6976,6 +7209,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-城南町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>133.7万円/坪</strong>（国交省成約実績86件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-城南町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-城南町">城南町 <span class="rm" onclick="removeDistrictLine('城南町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-城南町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -8139,6 +8380,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-城西町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>105.2万円/坪</strong>（国交省成約実績18件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-城西町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-城西町">城西町 <span class="rm" onclick="removeDistrictLine('城西町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-城西町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -8395,6 +8644,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-塚原">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>73.1万円/坪</strong>（国交省成約実績59件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-塚原">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-塚原">塚原 <span class="rm" onclick="removeDistrictLine('塚原')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-塚原"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -9248,6 +9505,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-塚脇">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>78.1万円/坪</strong>（国交省成約実績21件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-塚脇">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-塚脇">塚脇 <span class="rm" onclick="removeDistrictLine('塚脇')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-塚脇"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -9624,6 +9889,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大冠町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>74.5万円/坪</strong>（国交省成約実績18件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-大冠町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大冠町">大冠町 <span class="rm" onclick="removeDistrictLine('大冠町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大冠町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -9943,6 +10216,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大和">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>80.5万円/坪</strong>（国交省成約実績41件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-大和">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大和">大和 <span class="rm" onclick="removeDistrictLine('大和')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大和"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -10538,6 +10819,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大塚町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>95.6万円/坪</strong>（国交省成約実績84件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-大塚町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大塚町">大塚町 <span class="rm" onclick="removeDistrictLine('大塚町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大塚町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -11677,6 +11966,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大字出灰小字東羅">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-大字出灰小字東羅">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大字出灰小字東羅">大字出灰小字東羅 <span class="rm" onclick="removeDistrictLine('大字出灰小字東羅')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大字出灰小字東羅"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -11701,6 +11998,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大字原">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-大字原">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大字原">大字原 <span class="rm" onclick="removeDistrictLine('大字原')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大字原"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -11765,6 +12070,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大手町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>232.3万円/坪</strong>（国交省成約実績3件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-大手町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大手町">大手町 <span class="rm" onclick="removeDistrictLine('大手町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大手町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -11841,6 +12154,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大蔵司">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>144.2万円/坪</strong>（国交省成約実績30件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-大蔵司">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大蔵司">大蔵司 <span class="rm" onclick="removeDistrictLine('大蔵司')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大蔵司"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -12255,6 +12576,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-天川新町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>80.0万円/坪</strong>（国交省成約実績23件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-天川新町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-天川新町">天川新町 <span class="rm" onclick="removeDistrictLine('天川新町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-天川新町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -12585,6 +12914,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-天川町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>124.8万円/坪</strong>（国交省成約実績4件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-天川町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-天川町">天川町 <span class="rm" onclick="removeDistrictLine('天川町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-天川町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -12666,6 +13003,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-天王町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>113.6万円/坪</strong>（国交省成約実績7件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-天王町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-天王町">天王町 <span class="rm" onclick="removeDistrictLine('天王町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-天王町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -12804,6 +13149,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-天神町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>152.8万円/坪</strong>（国交省成約実績17件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-天神町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-天神町">天神町 <span class="rm" onclick="removeDistrictLine('天神町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-天神町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -13083,6 +13436,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-奈佐原">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>78.1万円/坪</strong>（国交省成約実績25件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-奈佐原">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-奈佐原">奈佐原 <span class="rm" onclick="removeDistrictLine('奈佐原')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-奈佐原"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -13423,6 +13784,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-奈佐原元町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>78.6万円/坪</strong>（国交省成約実績9件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-奈佐原元町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-奈佐原元町">奈佐原元町 <span class="rm" onclick="removeDistrictLine('奈佐原元町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-奈佐原元町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -13627,6 +13996,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-奥天神町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>68.5万円/坪</strong>（国交省成約実績36件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-奥天神町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-奥天神町">奥天神町 <span class="rm" onclick="removeDistrictLine('奥天神町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-奥天神町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -14253,6 +14630,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-如是町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>138.8万円/坪</strong>（国交省成約実績35件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-如是町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-如是町">如是町 <span class="rm" onclick="removeDistrictLine('如是町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-如是町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -14706,6 +15091,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-安岡寺町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>96.2万円/坪</strong>（国交省成約実績125件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-安岡寺町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-安岡寺町">安岡寺町 <span class="rm" onclick="removeDistrictLine('安岡寺町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-安岡寺町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -16240,6 +16633,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-安満中の町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>163.3万円/坪</strong>（国交省成約実績6件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-安満中の町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-安満中の町">安満中の町 <span class="rm" onclick="removeDistrictLine('安満中の町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-安満中の町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -16345,6 +16746,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-安満西の町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>150.3万円/坪</strong>（国交省成約実績18件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-安満西の町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-安満西の町">安満西の町 <span class="rm" onclick="removeDistrictLine('安満西の町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-安満西の町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -16594,6 +17003,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-宮が谷町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>140.9万円/坪</strong>（国交省成約実績15件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-宮が谷町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-宮が谷町">宮が谷町 <span class="rm" onclick="removeDistrictLine('宮が谷町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-宮が谷町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -16828,6 +17245,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-宮之川原">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>77.0万円/坪</strong>（国交省成約実績27件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-宮之川原">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-宮之川原">宮之川原 <span class="rm" onclick="removeDistrictLine('宮之川原')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-宮之川原"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -17220,6 +17645,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-宮之川原元町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>103.0万円/坪</strong>（国交省成約実績3件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-宮之川原元町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-宮之川原元町">宮之川原元町 <span class="rm" onclick="removeDistrictLine('宮之川原元町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-宮之川原元町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -17289,6 +17722,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-宮田町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>144.3万円/坪</strong>（国交省成約実績43件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-宮田町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-宮田町">宮田町 <span class="rm" onclick="removeDistrictLine('宮田町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-宮田町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -17957,6 +18398,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-宮野町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>80.8万円/坪</strong>（国交省成約実績19件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-宮野町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-宮野町">宮野町 <span class="rm" onclick="removeDistrictLine('宮野町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-宮野町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -18246,6 +18695,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-富田町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>146.9万円/坪</strong>（国交省成約実績71件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-富田町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-富田町">富田町 <span class="rm" onclick="removeDistrictLine('富田町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-富田町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -19243,6 +19700,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-寺谷町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>72.9万円/坪</strong>（国交省成約実績24件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-寺谷町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-寺谷町">寺谷町 <span class="rm" onclick="removeDistrictLine('寺谷町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-寺谷町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -19606,6 +20071,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-寿町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>135.9万円/坪</strong>（国交省成約実績94件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-寿町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-寿町">寿町 <span class="rm" onclick="removeDistrictLine('寿町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-寿町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -20886,6 +21359,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-山手町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>140.1万円/坪</strong>（国交省成約実績13件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-山手町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-山手町">山手町 <span class="rm" onclick="removeDistrictLine('山手町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-山手町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -21110,6 +21591,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-岡本町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>96.4万円/坪</strong>（国交省成約実績25件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-岡本町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-岡本町">岡本町 <span class="rm" onclick="removeDistrictLine('岡本町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-岡本町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -21527,6 +22016,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-川添">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>132.2万円/坪</strong>（国交省成約実績31件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-川添">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-川添">川添 <span class="rm" onclick="removeDistrictLine('川添')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-川添"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -22009,6 +22506,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-川西町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>140.5万円/坪</strong>（国交省成約実績61件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-川西町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-川西町">川西町 <span class="rm" onclick="removeDistrictLine('川西町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-川西町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -22851,6 +23356,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-庄所町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>103.9万円/坪</strong>（国交省成約実績21件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-庄所町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-庄所町">庄所町 <span class="rm" onclick="removeDistrictLine('庄所町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-庄所町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -23164,6 +23677,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-弥生が丘町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>57.5万円/坪</strong>（国交省成約実績39件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-弥生が丘町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-弥生が丘町">弥生が丘町 <span class="rm" onclick="removeDistrictLine('弥生が丘町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-弥生が丘町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -23686,6 +24207,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-成合東の町">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-成合東の町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-成合東の町">成合東の町 <span class="rm" onclick="removeDistrictLine('成合東の町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-成合東の町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -23731,6 +24260,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-日吉台一番町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>105.2万円/坪</strong>（国交省成約実績11件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-日吉台一番町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-日吉台一番町">日吉台一番町 <span class="rm" onclick="removeDistrictLine('日吉台一番町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-日吉台一番町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -23917,6 +24454,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-日吉台七番町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>106.8万円/坪</strong>（国交省成約実績25件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-日吉台七番町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-日吉台七番町">日吉台七番町 <span class="rm" onclick="removeDistrictLine('日吉台七番町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-日吉台七番町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -24299,6 +24844,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-日吉台三番町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>92.2万円/坪</strong>（国交省成約実績23件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-日吉台三番町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-日吉台三番町">日吉台三番町 <span class="rm" onclick="removeDistrictLine('日吉台三番町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-日吉台三番町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -24643,6 +25196,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-日吉台二番町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>91.3万円/坪</strong>（国交省成約実績20件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-日吉台二番町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-日吉台二番町">日吉台二番町 <span class="rm" onclick="removeDistrictLine('日吉台二番町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-日吉台二番町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -24993,6 +25554,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-日吉台五番町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>95.7万円/坪</strong>（国交省成約実績33件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-日吉台五番町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-日吉台五番町">日吉台五番町 <span class="rm" onclick="removeDistrictLine('日吉台五番町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-日吉台五番町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -25450,6 +26019,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-日吉台六番町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>68.0万円/坪</strong>（国交省成約実績21件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-日吉台六番町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-日吉台六番町">日吉台六番町 <span class="rm" onclick="removeDistrictLine('日吉台六番町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-日吉台六番町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -25784,6 +26361,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-日吉台四番町">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-日吉台四番町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-日吉台四番町">日吉台四番町 <span class="rm" onclick="removeDistrictLine('日吉台四番町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-日吉台四番町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -25970,6 +26555,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-日向町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>135.9万円/坪</strong>（国交省成約実績18件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-日向町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-日向町">日向町 <span class="rm" onclick="removeDistrictLine('日向町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-日向町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -26268,6 +26861,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-日向町詳細お問合せください">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-日向町詳細お問合せください">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-日向町詳細お問合せください">日向町詳細お問合せください <span class="rm" onclick="removeDistrictLine('日向町詳細お問合せください')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-日向町詳細お問合せください"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -26292,6 +26893,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-明田町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>124.0万円/坪</strong>（国交省成約実績2件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-明田町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-明田町">明田町 <span class="rm" onclick="removeDistrictLine('明田町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-明田町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -26349,6 +26958,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-明野町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>135.2万円/坪</strong>（国交省成約実績38件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-明野町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-明野町">明野町 <span class="rm" onclick="removeDistrictLine('明野町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-明野町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -26908,6 +27525,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-春日町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>82.6万円/坪</strong>（国交省成約実績27件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-春日町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-春日町">春日町 <span class="rm" onclick="removeDistrictLine('春日町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-春日町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -27356,6 +27981,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-昭和台町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>98.7万円/坪</strong>（国交省成約実績39件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-昭和台町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-昭和台町">昭和台町 <span class="rm" onclick="removeDistrictLine('昭和台町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-昭和台町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -27913,6 +28546,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-月見町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>108.5万円/坪</strong>（国交省成約実績24件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-月見町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-月見町">月見町 <span class="rm" onclick="removeDistrictLine('月見町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-月見町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -28241,6 +28882,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-東上牧">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>112.4万円/坪</strong>（国交省成約実績47件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-東上牧">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-東上牧">東上牧 <span class="rm" onclick="removeDistrictLine('東上牧')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-東上牧"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -28887,6 +29536,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-東五百住町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>96.2万円/坪</strong>（国交省成約実績71件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-東五百住町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-東五百住町">東五百住町 <span class="rm" onclick="removeDistrictLine('東五百住町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-東五百住町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -29842,6 +30499,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-東和町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>84.0万円/坪</strong>（国交省成約実績31件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-東和町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-東和町">東和町 <span class="rm" onclick="removeDistrictLine('東和町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-東和町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -30247,6 +30912,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-東城山町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>122.4万円/坪</strong>（国交省成約実績12件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-東城山町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-東城山町">東城山町 <span class="rm" onclick="removeDistrictLine('東城山町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-東城山町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -30459,6 +31132,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-東天川">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>106.2万円/坪</strong>（国交省成約実績14件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-東天川">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-東天川">東天川 <span class="rm" onclick="removeDistrictLine('東天川')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-東天川"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -30681,6 +31362,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-松が丘">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>75.6万円/坪</strong>（国交省成約実績77件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-松が丘">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-松が丘">松が丘 <span class="rm" onclick="removeDistrictLine('松が丘')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-松が丘"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -31834,6 +32523,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-松原町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>88.2万円/坪</strong>（国交省成約実績7件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-松原町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-松原町">松原町 <span class="rm" onclick="removeDistrictLine('松原町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-松原町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -31951,6 +32648,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-松川町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>64.7万円/坪</strong>（国交省成約実績12件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-松川町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-松川町">松川町 <span class="rm" onclick="removeDistrictLine('松川町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-松川町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -32163,6 +32868,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-柱本">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>57.9万円/坪</strong>（国交省成約実績30件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-柱本">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-柱本">柱本 <span class="rm" onclick="removeDistrictLine('柱本')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-柱本"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -32584,6 +33297,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-柱本新町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>57.9万円/坪</strong>（国交省成約実績4件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-柱本新町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-柱本新町">柱本新町 <span class="rm" onclick="removeDistrictLine('柱本新町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-柱本新町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -32679,6 +33400,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-柳川町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>115.2万円/坪</strong>（国交省成約実績26件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-柳川町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-柳川町">柳川町 <span class="rm" onclick="removeDistrictLine('柳川町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-柳川町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -33094,6 +33823,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-栄町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>109.3万円/坪</strong>（国交省成約実績95件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-栄町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-栄町">栄町 <span class="rm" onclick="removeDistrictLine('栄町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-栄町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -34379,6 +35116,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-桜ケ丘北町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>99.2万円/坪</strong>（国交省成約実績12件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-桜ケ丘北町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-桜ケ丘北町">桜ケ丘北町 <span class="rm" onclick="removeDistrictLine('桜ケ丘北町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-桜ケ丘北町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -34563,6 +35308,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-桜ケ丘南町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>152.6万円/坪</strong>（国交省成約実績12件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-桜ケ丘南町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-桜ケ丘南町">桜ケ丘南町 <span class="rm" onclick="removeDistrictLine('桜ケ丘南町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-桜ケ丘南町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -34761,6 +35514,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-梶原">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>44.8万円/坪</strong>（国交省成約実績9件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-梶原">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-梶原">梶原 <span class="rm" onclick="removeDistrictLine('梶原')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-梶原"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -34909,6 +35670,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-氷室町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>115.7万円/坪</strong>（国交省成約実績81件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-氷室町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-氷室町">氷室町 <span class="rm" onclick="removeDistrictLine('氷室町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-氷室町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -35949,6 +36718,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-永楽町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>155.6万円/坪</strong>（国交省成約実績17件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-永楽町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-永楽町">永楽町 <span class="rm" onclick="removeDistrictLine('永楽町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-永楽町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -36249,6 +37026,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-津之江北町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>100.1万円/坪</strong>（国交省成約実績44件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-津之江北町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-津之江北町">津之江北町 <span class="rm" onclick="removeDistrictLine('津之江北町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-津之江北町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -36859,6 +37644,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-津之江町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>95.5万円/坪</strong>（国交省成約実績165件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-津之江町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-津之江町">津之江町 <span class="rm" onclick="removeDistrictLine('津之江町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-津之江町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -38400,6 +39193,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-浦堂">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>61.9万円/坪</strong>（国交省成約実績14件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-浦堂">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-浦堂">浦堂 <span class="rm" onclick="removeDistrictLine('浦堂')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-浦堂"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -38629,6 +39430,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-浦堂本町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>95.2万円/坪</strong>（国交省成約実績19件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-浦堂本町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-浦堂本町">浦堂本町 <span class="rm" onclick="removeDistrictLine('浦堂本町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-浦堂本町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -38918,6 +39727,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-淀の原町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>73.6万円/坪</strong>（国交省成約実績60件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-淀の原町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-淀の原町">淀の原町 <span class="rm" onclick="removeDistrictLine('淀の原町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-淀の原町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -39839,6 +40656,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-深沢本町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>109.5万円/坪</strong>（国交省成約実績14件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-深沢本町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-深沢本町">深沢本町 <span class="rm" onclick="removeDistrictLine('深沢本町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-深沢本町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -40089,6 +40914,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-深沢町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>84.3万円/坪</strong>（国交省成約実績22件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-深沢町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-深沢町">深沢町 <span class="rm" onclick="removeDistrictLine('深沢町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-深沢町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -40386,6 +41219,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-清水台">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>41.6万円/坪</strong>（国交省成約実績16件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-清水台">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-清水台">清水台 <span class="rm" onclick="removeDistrictLine('清水台')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-清水台"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -40625,6 +41466,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-清福寺町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>99.8万円/坪</strong>（国交省成約実績27件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-清福寺町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-清福寺町">清福寺町 <span class="rm" onclick="removeDistrictLine('清福寺町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-清福寺町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -40982,6 +41831,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-牧田町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>87.0万円/坪</strong>（国交省成約実績7件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-牧田町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-牧田町">牧田町 <span class="rm" onclick="removeDistrictLine('牧田町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-牧田町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -41099,6 +41956,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-玉川">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>130.8万円/坪</strong>（国交省成約実績11件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-玉川">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-玉川">玉川 <span class="rm" onclick="removeDistrictLine('玉川')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-玉川"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -41264,6 +42129,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-登町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>38.4万円/坪</strong>（国交省成約実績10件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-登町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-登町">登町 <span class="rm" onclick="removeDistrictLine('登町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-登町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -41438,6 +42311,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-登美の里町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>135.1万円/坪</strong>（国交省成約実績14件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-登美の里町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-登美の里町">登美の里町 <span class="rm" onclick="removeDistrictLine('登美の里町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-登美の里町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -41639,6 +42520,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-真上町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>88.4万円/坪</strong>（国交省成約実績140件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-真上町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-真上町">真上町 <span class="rm" onclick="removeDistrictLine('真上町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-真上町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -43089,6 +43978,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-竹の内町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>92.6万円/坪</strong>（国交省成約実績37件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-竹の内町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-竹の内町">竹の内町 <span class="rm" onclick="removeDistrictLine('竹の内町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-竹の内町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -43622,6 +44519,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-紅茸町">
     <p style="color:#1a6bd1;font-size:13px">成約実績データなし</p>
+    <div class="district-chart-wrap" id="chartwrap-紅茸町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-紅茸町">紅茸町 <span class="rm" onclick="removeDistrictLine('紅茸町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-紅茸町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -43674,6 +44579,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-緑が丘">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>79.3万円/坪</strong>（国交省成約実績43件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-緑が丘">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-緑が丘">緑が丘 <span class="rm" onclick="removeDistrictLine('緑が丘')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-緑が丘"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -44265,6 +45178,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-美しが丘">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>107.0万円/坪</strong>（国交省成約実績7件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-美しが丘">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-美しが丘">美しが丘 <span class="rm" onclick="removeDistrictLine('美しが丘')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-美しが丘"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -44403,6 +45324,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-芝生町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>106.8万円/坪</strong>（国交省成約実績97件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-芝生町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-芝生町">芝生町 <span class="rm" onclick="removeDistrictLine('芝生町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-芝生町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -45684,6 +46613,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-芝谷町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>72.1万円/坪</strong>（国交省成約実績22件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-芝谷町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-芝谷町">芝谷町 <span class="rm" onclick="removeDistrictLine('芝谷町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-芝谷町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -46037,6 +46974,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-芥川町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>202.1万円/坪</strong>（国交省成約実績22件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-芥川町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-芥川町">芥川町 <span class="rm" onclick="removeDistrictLine('芥川町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-芥川町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -46362,6 +47307,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-花林苑">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>70.6万円/坪</strong>（国交省成約実績11件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-花林苑">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-花林苑">花林苑 <span class="rm" onclick="removeDistrictLine('花林苑')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-花林苑"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -46541,6 +47494,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-若松町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>142.6万円/坪</strong>（国交省成約実績18件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-若松町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-若松町">若松町 <span class="rm" onclick="removeDistrictLine('若松町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-若松町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -46811,6 +47772,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-藤の里町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>112.5万円/坪</strong>（国交省成約実績24件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-藤の里町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-藤の里町">藤の里町 <span class="rm" onclick="removeDistrictLine('藤の里町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-藤の里町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -47160,6 +48129,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-西五百住町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>180.3万円/坪</strong>（国交省成約実績17件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-西五百住町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-西五百住町">西五百住町 <span class="rm" onclick="removeDistrictLine('西五百住町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-西五百住町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -47404,6 +48381,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-西冠">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>87.6万円/坪</strong>（国交省成約実績39件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-西冠">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-西冠">西冠 <span class="rm" onclick="removeDistrictLine('西冠')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-西冠"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -47919,6 +48904,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-西町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>121.9万円/坪</strong>（国交省成約実績57件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-西町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-西町">西町 <span class="rm" onclick="removeDistrictLine('西町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-西町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -48874,6 +49867,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-西真上">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>125.9万円/坪</strong>（国交省成約実績20件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-西真上">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-西真上">西真上 <span class="rm" onclick="removeDistrictLine('西真上')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-西真上"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -49175,6 +50176,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-西面中">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>71.1万円/坪</strong>（国交省成約実績6件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-西面中">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-西面中">西面中 <span class="rm" onclick="removeDistrictLine('西面中')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-西面中"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -49280,6 +50289,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-赤大路町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>137.9万円/坪</strong>（国交省成約実績24件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-赤大路町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-赤大路町">赤大路町 <span class="rm" onclick="removeDistrictLine('赤大路町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-赤大路町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -49636,6 +50653,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-辻子">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>114.8万円/坪</strong>（国交省成約実績51件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-辻子">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-辻子">辻子 <span class="rm" onclick="removeDistrictLine('辻子')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-辻子"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -50400,6 +51425,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-郡家新町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>143.7万円/坪</strong>（国交省成約実績44件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-郡家新町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-郡家新町">郡家新町 <span class="rm" onclick="removeDistrictLine('郡家新町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-郡家新町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -51038,6 +52071,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-郡家本町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>81.9万円/坪</strong>（国交省成約実績8件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-郡家本町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-郡家本町">郡家本町 <span class="rm" onclick="removeDistrictLine('郡家本町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-郡家本町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -51174,6 +52215,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-野田">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>91.5万円/坪</strong>（国交省成約実績58件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-野田">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-野田">野田 <span class="rm" onclick="removeDistrictLine('野田')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-野田"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -52071,6 +53120,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-野見町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>158.7万円/坪</strong>（国交省成約実績1件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-野見町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-野見町">野見町 <span class="rm" onclick="removeDistrictLine('野見町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-野見町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -52116,6 +53173,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-須賀町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>88.8万円/坪</strong>（国交省成約実績20件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-須賀町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-須賀町">須賀町 <span class="rm" onclick="removeDistrictLine('須賀町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-須賀町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -52403,6 +53468,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-高垣町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>138.8万円/坪</strong>（国交省成約実績32件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-高垣町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-高垣町">高垣町 <span class="rm" onclick="removeDistrictLine('高垣町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-高垣町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -52869,6 +53942,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-高西町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>136.4万円/坪</strong>（国交省成約実績24件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-高西町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-高西町">高西町 <span class="rm" onclick="removeDistrictLine('高西町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-高西町"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -53246,6 +54327,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-高見台">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>47.8万円/坪</strong>（国交省成約実績16件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-高見台">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-高見台">高見台 <span class="rm" onclick="removeDistrictLine('高見台')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-高見台"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -53485,6 +54574,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-黄金の里">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>5.2万円/坪</strong>（国交省成約実績4件の中央値）</p>
+    <div class="district-chart-wrap" id="chartwrap-黄金の里">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-黄金の里">黄金の里 <span class="rm" onclick="removeDistrictLine('黄金の里')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-黄金の里"></canvas></div>
+    </div>
     <h3>現在の掲載物件</h3>
     <table>
     <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
@@ -53573,6 +54670,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-三箇牧">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>28.1万円/坪</strong>（国交省成約実績2件）</p>
+    <div class="district-chart-wrap" id="chartwrap-三箇牧">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-三箇牧">三箇牧 <span class="rm" onclick="removeDistrictLine('三箇牧')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-三箇牧"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 2件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -53617,6 +54722,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-上牧南駅前町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>90.6万円/坪</strong>（国交省成約実績5件）</p>
+    <div class="district-chart-wrap" id="chartwrap-上牧南駅前町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-上牧南駅前町">上牧南駅前町 <span class="rm" onclick="removeDistrictLine('上牧南駅前町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-上牧南駅前町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 5件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -53697,6 +54810,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-上牧町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>86.1万円/坪</strong>（国交省成約実績6件）</p>
+    <div class="district-chart-wrap" id="chartwrap-上牧町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-上牧町">上牧町 <span class="rm" onclick="removeDistrictLine('上牧町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-上牧町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 6件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -53789,6 +54910,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-上田辺町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>230.4万円/坪</strong>（国交省成約実績6件）</p>
+    <div class="district-chart-wrap" id="chartwrap-上田辺町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-上田辺町">上田辺町 <span class="rm" onclick="removeDistrictLine('上田辺町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-上田辺町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 6件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -53881,6 +55010,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-今城町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>118.8万円/坪</strong>（国交省成約実績6件）</p>
+    <div class="district-chart-wrap" id="chartwrap-今城町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-今城町">今城町 <span class="rm" onclick="removeDistrictLine('今城町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-今城町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 6件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -53973,6 +55110,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-八丁畷町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>181.8万円/坪</strong>（国交省成約実績12件）</p>
+    <div class="district-chart-wrap" id="chartwrap-八丁畷町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-八丁畷町">八丁畷町 <span class="rm" onclick="removeDistrictLine('八丁畷町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-八丁畷町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 12件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54137,6 +55282,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-別所新町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>107.4万円/坪</strong>（国交省成約実績2件）</p>
+    <div class="district-chart-wrap" id="chartwrap-別所新町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-別所新町">別所新町 <span class="rm" onclick="removeDistrictLine('別所新町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-別所新町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 2件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54181,6 +55334,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-北園町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>228.9万円/坪</strong>（国交省成約実績7件）</p>
+    <div class="district-chart-wrap" id="chartwrap-北園町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-北園町">北園町 <span class="rm" onclick="removeDistrictLine('北園町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-北園町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 7件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54285,6 +55446,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-千代田町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>153.3万円/坪</strong>（国交省成約実績17件）</p>
+    <div class="district-chart-wrap" id="chartwrap-千代田町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-千代田町">千代田町 <span class="rm" onclick="removeDistrictLine('千代田町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-千代田町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 17件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54509,6 +55678,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-唐崎南">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>20.1万円/坪</strong>（国交省成約実績1件）</p>
+    <div class="district-chart-wrap" id="chartwrap-唐崎南">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-唐崎南">唐崎南 <span class="rm" onclick="removeDistrictLine('唐崎南')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-唐崎南"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 1件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54541,6 +55718,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-城北町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>146.5万円/坪</strong>（国交省成約実績6件）</p>
+    <div class="district-chart-wrap" id="chartwrap-城北町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-城北町">城北町 <span class="rm" onclick="removeDistrictLine('城北町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-城北町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 6件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54633,6 +55818,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-堤町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>115.7万円/坪</strong>（国交省成約実績3件）</p>
+    <div class="district-chart-wrap" id="chartwrap-堤町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-堤町">堤町 <span class="rm" onclick="removeDistrictLine('堤町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-堤町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 3件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54689,6 +55882,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大字三島江">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>18.0万円/坪</strong>（国交省成約実績1件）</p>
+    <div class="district-chart-wrap" id="chartwrap-大字三島江">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大字三島江">大字三島江 <span class="rm" onclick="removeDistrictLine('大字三島江')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大字三島江"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 1件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54721,6 +55922,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大字二料">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>8.6万円/坪</strong>（国交省成約実績2件）</p>
+    <div class="district-chart-wrap" id="chartwrap-大字二料">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大字二料">大字二料 <span class="rm" onclick="removeDistrictLine('大字二料')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大字二料"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 2件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54765,6 +55974,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大字成合">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>0.2万円/坪</strong>（国交省成約実績1件）</p>
+    <div class="district-chart-wrap" id="chartwrap-大字成合">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大字成合">大字成合 <span class="rm" onclick="removeDistrictLine('大字成合')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大字成合"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 1件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54797,6 +56014,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大字田能">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>3.8万円/坪</strong>（国交省成約実績4件）</p>
+    <div class="district-chart-wrap" id="chartwrap-大字田能">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大字田能">大字田能 <span class="rm" onclick="removeDistrictLine('大字田能')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大字田能"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 4件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54865,6 +56090,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-大畑町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>147.9万円/坪</strong>（国交省成約実績6件）</p>
+    <div class="district-chart-wrap" id="chartwrap-大畑町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-大畑町">大畑町 <span class="rm" onclick="removeDistrictLine('大畑町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-大畑町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 6件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -54957,6 +56190,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-安満東の町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>148.8万円/坪</strong>（国交省成約実績2件）</p>
+    <div class="district-chart-wrap" id="chartwrap-安満東の町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-安満東の町">安満東の町 <span class="rm" onclick="removeDistrictLine('安満東の町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-安満東の町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 2件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -55001,6 +56242,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-安満磐手町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>44.1万円/坪</strong>（国交省成約実績2件）</p>
+    <div class="district-chart-wrap" id="chartwrap-安満磐手町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-安満磐手町">安満磐手町 <span class="rm" onclick="removeDistrictLine('安満磐手町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-安満磐手町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 2件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -55045,6 +56294,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-富田丘町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>146.2万円/坪</strong>（国交省成約実績13件）</p>
+    <div class="district-chart-wrap" id="chartwrap-富田丘町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-富田丘町">富田丘町 <span class="rm" onclick="removeDistrictLine('富田丘町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-富田丘町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 13件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -55221,6 +56478,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-成合中の町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>11.2万円/坪</strong>（国交省成約実績1件）</p>
+    <div class="district-chart-wrap" id="chartwrap-成合中の町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-成合中の町">成合中の町 <span class="rm" onclick="removeDistrictLine('成合中の町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-成合中の町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 1件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -55253,6 +56518,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-本町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>128.3万円/坪</strong>（国交省成約実績7件）</p>
+    <div class="district-chart-wrap" id="chartwrap-本町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-本町">本町 <span class="rm" onclick="removeDistrictLine('本町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-本町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 7件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -55357,6 +56630,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-殿町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>170.2万円/坪</strong>（国交省成約実績4件）</p>
+    <div class="district-chart-wrap" id="chartwrap-殿町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-殿町">殿町 <span class="rm" onclick="removeDistrictLine('殿町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-殿町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 4件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -55425,6 +56706,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-沢良木町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>129.6万円/坪</strong>（国交省成約実績9件）</p>
+    <div class="district-chart-wrap" id="chartwrap-沢良木町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-沢良木町">沢良木町 <span class="rm" onclick="removeDistrictLine('沢良木町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-沢良木町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 9件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -55553,6 +56842,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-玉川新町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>131.0万円/坪</strong>（国交省成約実績2件）</p>
+    <div class="district-chart-wrap" id="chartwrap-玉川新町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-玉川新町">玉川新町 <span class="rm" onclick="removeDistrictLine('玉川新町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-玉川新町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 2件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -55597,6 +56894,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-神内">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>110.8万円/坪</strong>（国交省成約実績7件）</p>
+    <div class="district-chart-wrap" id="chartwrap-神内">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-神内">神内 <span class="rm" onclick="removeDistrictLine('神内')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-神内"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 7件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -55701,6 +57006,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-紺屋町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>184.9万円/坪</strong>（国交省成約実績2件）</p>
+    <div class="district-chart-wrap" id="chartwrap-紺屋町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-紺屋町">紺屋町 <span class="rm" onclick="removeDistrictLine('紺屋町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-紺屋町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 2件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -55745,6 +57058,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-緑町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>110.2万円/坪</strong>（国交省成約実績23件）</p>
+    <div class="district-chart-wrap" id="chartwrap-緑町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-緑町">緑町 <span class="rm" onclick="removeDistrictLine('緑町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-緑町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 23件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -56041,6 +57362,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-萩之庄">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>67.3万円/坪</strong>（国交省成約実績6件）</p>
+    <div class="district-chart-wrap" id="chartwrap-萩之庄">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-萩之庄">萩之庄 <span class="rm" onclick="removeDistrictLine('萩之庄')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-萩之庄"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 6件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -56133,6 +57462,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-萩谷月見台">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>9.6万円/坪</strong>（国交省成約実績2件）</p>
+    <div class="district-chart-wrap" id="chartwrap-萩谷月見台">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-萩谷月見台">萩谷月見台 <span class="rm" onclick="removeDistrictLine('萩谷月見台')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-萩谷月見台"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 2件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -56177,6 +57514,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-西之川原">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>51.4万円/坪</strong>（国交省成約実績2件）</p>
+    <div class="district-chart-wrap" id="chartwrap-西之川原">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-西之川原">西之川原 <span class="rm" onclick="removeDistrictLine('西之川原')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-西之川原"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 2件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -56221,6 +57566,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-阿武野">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>93.8万円/坪</strong>（国交省成約実績1件）</p>
+    <div class="district-chart-wrap" id="chartwrap-阿武野">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-阿武野">阿武野 <span class="rm" onclick="removeDistrictLine('阿武野')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-阿武野"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 1件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -56253,6 +57606,14 @@ hr{border:none;border-top:1px solid #e0e0e0;margin:16px 0}
   </h2>
   <div class="dist-body" id="body-高槻町">
     <p style="color:#1a6bd1;font-size:13px">坪単価中央値: <strong>271.8万円/坪</strong>（国交省成約実績8件）</p>
+    <div class="district-chart-wrap" id="chartwrap-高槻町">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:bold">📈 坪単価推移：</span>
+        <span class="tag city-tag">高槻市全体</span>
+        <span class="tag" id="dtag-高槻町">高槻町 <span class="rm" onclick="removeDistrictLine('高槻町')">❌</span></span>
+      </div>
+      <div style="position:relative;height:220px"><canvas id="dchart-高槻町"></canvas></div>
+    </div>
     <h3>過去の成約実績（国交省 reinfolib / 8件・直近100件表示）</h3>
   <div style="overflow-x:auto">
   <table>
@@ -56378,6 +57739,54 @@ function toggleNav() {
   icon.textContent = body.classList.contains('open') ? '▲ 閉じる' : '▼ 展開';
 }
 
+const distCharts = {};
+const distShowDistrict = {};  // anchor -> bool (district line visible)
+
+function initDistrictChart(anchor) {
+  if (distCharts[anchor]) return;
+  const canvas = document.getElementById('dchart-' + anchor);
+  if (!canvas) return;
+  // 地区名を逆引き（data-anchor から）
+  const h2 = document.querySelector(`[data-anchor="${anchor}"]`);
+  const distName = h2 ? h2.textContent.replace(/（.*/, '').trim() : anchor;
+
+  const cityData = QUARTERS.map(q => CHART_DATA.city[q] ?? null);
+  const distData = QUARTERS.map(q => (CHART_DATA.districts[distName] || {})[q] ?? null);
+
+  distShowDistrict[anchor] = true;
+  const datasets = [
+    { label: '高槻市全体', data: cityData, borderColor: '#e67e00', backgroundColor: '#e67e0022', tension: 0.3, spanGaps: true, borderWidth: 3, pointRadius: 3 },
+    { label: distName, data: distData, borderColor: '#1a6bd1', backgroundColor: '#1a6bd122', tension: 0.3, spanGaps: true, borderWidth: 2, pointRadius: 3 },
+  ];
+  distCharts[anchor] = new Chart(canvas.getContext('2d'), {
+    type: 'line',
+    data: { labels: LABELS, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'top', labels: { font: { size: 11 } } },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}万円/坪` } }
+      },
+      scales: {
+        x: { ticks: { font: { size: 10 }, maxRotation: 45, autoSkip: true, maxTicksLimit: 12 } },
+        y: { title: { display: true, text: '万円/坪' }, ticks: { font: { size: 10 } } }
+      }
+    }
+  });
+}
+
+function removeDistrictLine(anchor) {
+  const ch = distCharts[anchor];
+  if (!ch) return;
+  // 地区データセット（index=1）を削除
+  ch.data.datasets = [ch.data.datasets[0]];
+  ch.update();
+  const tag = document.getElementById('dtag-' + anchor);
+  if (tag) tag.style.display = 'none';
+  distShowDistrict[anchor] = false;
+}
+
 function toggleDist(el) {
   const anchor = el.dataset.anchor;
   const body = document.getElementById('body-' + anchor);
@@ -56385,6 +57794,7 @@ function toggleDist(el) {
   if (body) {
     body.classList.toggle('open');
     icon.textContent = body.classList.contains('open') ? '▲' : '▼';
+    if (body.classList.contains('open')) initDistrictChart(anchor);
   }
 }
 
@@ -56463,7 +57873,8 @@ renderChart();
       body.classList.add('open');
       const h2 = document.querySelector('[data-anchor="' + anchor + '"]');
       if (h2) h2.querySelector('.toggle-icon').textContent = '▲';
-      setTimeout(() => body.parentElement.scrollIntoView({behavior:'smooth'}), 100);
+      initDistrictChart(anchor);
+      setTimeout(() => body.parentElement.scrollIntoView({behavior:'smooth'}), 150);
     }
   }
 })();
