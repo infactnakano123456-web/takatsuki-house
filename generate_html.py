@@ -46,15 +46,43 @@ def generate(cfg: dict):
     props = [dict(r) for r in rows]
 
     # reinfolib 実勢成約データ（国交省）を読み込む
+    from statistics import median as _median
     REINFOLIB_PATH = Path(__file__).parent / "reinfolib_data.json"
     reinfolib_data = {}
     if REINFOLIB_PATH.exists():
         with open(REINFOLIB_PATH, encoding="utf-8") as f:
             reinfolib_data = json.load(f)
-    # district_median: 地区名 → 坪単価中央値（万円/坪）
-    district_median = {d: v["median_tsubo"] for d, v in reinfolib_data.items()}
 
-    # market_tsubo_median を各物件に付与
+    # 期間別の地区坪単価中央値を事前計算
+    PERIOD_RANGES = {
+        "2024-2025": ("2024", "2025"),
+        "2023-2025": ("2023", "2024", "2025"),
+        "2022-2025": ("2022", "2023", "2024", "2025"),
+        "all":       None,  # 全期間
+    }
+    DEFAULT_PERIOD = "2024-2025"
+
+    def compute_district_medians(period_years):
+        result = {}
+        for d, v in reinfolib_data.items():
+            txns = v.get("transactions", [])
+            if period_years:
+                txns = [t for t in txns if t.get("period", "")[:4] in period_years]
+            vals = [t["tsubo_price"] for t in txns if t.get("tsubo_price")]
+            if vals:
+                result[d] = round(_median(vals), 1)
+        return result
+
+    # 全期間分を計算してJSに埋め込む用（地区名をanchorキーに変換）
+    all_period_medians = {
+        period: {district_anchor(d): v for d, v in compute_district_medians(years).items()}
+        for period, years in PERIOD_RANGES.items()
+    }
+
+    # デフォルト期間で物件に付与
+    district_median = all_period_medians[DEFAULT_PERIOD]
+
+    # market_tsubo_median を各物件に付与（デフォルト期間）
     for p in props:
         d = extract_district(p.get("address", ""))
         p["market_tsubo_median"] = district_median.get(d)
@@ -161,19 +189,23 @@ def generate(cfg: dict):
         # 間取り表示：土地のみなら「土地」
         floor_display = floor_plan if floor_plan != "—" else ("土地" if _is_land_only else "—")
 
+        # 坪単価（数値のみ、JS切替用）
+        tsubo_raw = f"{tsubo_val:.1f}" if tsubo_val else ""
+
         # data属性でフィルタ用
         rows_html.append(f"""
     <tr class="{row_class}" data-score="{score}" data-excl="{'1' if excl else '0'}"
         data-address="{address}" data-district="{district}" data-type="{prop_type}"
         data-price="{p['price_man'] or ''}" data-floor="{floor_plan}"
-        data-walk="{data_walk}" data-built="{data_built}" data-ldk="{data_ldk}">
+        data-walk="{data_walk}" data-built="{data_built}" data-ldk="{data_ldk}"
+        data-tsubo="{tsubo_raw}" data-anchor="{anchor}">
       <td class="rec">{rec}</td>
       <td class="score" data-reasons='{tooltip_json}' onclick="showScoreCard(this)">{score}</td>
       <td>{land}{land_tsubo}<br><small style="color:#666">{building}</small></td>
       <td>{floor_display}</td>
       <td class="price">{price}</td>
-      <td class="tsubo">{tsubo_cell}</td>
-      <td class="tsubo">{market_cell}</td>
+      <td class="tsubo tsubo-val">{tsubo_cell}</td>
+      <td class="tsubo market-val"></td>
       <td>{built}</td>
       <td>{walk_jr}<br><small style="color:#999">{walk_sub}</small></td>
       <td>{dist_jr}</td>
@@ -283,6 +315,14 @@ tr.hidden{{display:none}}
     <option value="land">土地のみ</option>
   </select>
 
+  <label>相場期間</label>
+  <select id="sel-period" onchange="updateMarketCells()">
+    <option value="2024-2025">直近2年（2024-25）</option>
+    <option value="2023-2025">直近3年（2023-25）</option>
+    <option value="2022-2025">直近4年（2022-25）</option>
+    <option value="all">全期間（2020-25）</option>
+  </select>
+
   <button onclick="resetFilters()" style="font-size:12px;padding:4px 10px">リセット</button>
   <span id="result-count"></span>
 </div>
@@ -315,6 +355,41 @@ tr.hidden{{display:none}}
 </table>
 
 <script>
+// 期間別・地区別 成約坪単価中央値
+const MARKET_DATA = {json.dumps(all_period_medians, ensure_ascii=False)};
+
+function updateMarketCells() {{
+  const period = document.getElementById('sel-period').value;
+  const medians = MARKET_DATA[period] || {{}};
+  document.querySelectorAll('#main-table tbody tr').forEach(tr => {{
+    const anchor = tr.dataset.anchor || '';
+    const tsuboVal = parseFloat(tr.dataset.tsubo) || 0;
+    const med = medians[anchor] || medians[decodeURIComponent(anchor)];
+    const cell = tr.querySelector('td.market-val');
+    if (!cell) return;
+    if (med) {{
+      const ratio = tsuboVal > 0 ? tsuboVal / med : null;
+      let pctHtml = '';
+      if (ratio) {{
+        const pct = Math.round((ratio - 1) * 100);
+        const sign = pct >= 0 ? '+' : '';
+        const color = ratio <= 0.90 ? '#1a8a1a' : ratio <= 1.00 ? '#555' : ratio <= 1.15 ? '#b86000' : '#c00';
+        pctHtml = ` <span style="color:${{color}};font-size:11px">(${{sign}}${{pct}}%)</span>`;
+        // 坪単価セルの%も更新
+        const tsuboCell = tr.querySelector('td.tsubo-val');
+        if (tsuboCell && tsuboVal > 0) {{
+          tsuboCell.innerHTML = `${{tsuboVal.toFixed(1)}}万円/坪${{pctHtml}}`;
+        }}
+      }}
+      cell.innerHTML = `<a href="market.html#dist-${{anchor}}" target="_blank" style="color:#1a6bd1">${{med.toFixed(1)}}万円/坪</a>`;
+    }} else {{
+      cell.innerHTML = anchor
+        ? `<a href="market.html#dist-${{anchor}}" target="_blank" style="color:#bbb;font-size:11px">成約実績↓</a>`
+        : '<span style="color:#bbb">—</span>';
+    }}
+  }});
+}}
+
 function showGroundRules() {{
   document.getElementById('score-card-title').textContent = '採点ロジック（Ground Rules）';
   document.getElementById('score-card-list').innerHTML = `
@@ -429,6 +504,7 @@ function resetFilters() {{
   document.getElementById(id).addEventListener('input', applyFilters)
 );
 applyFilters();
+updateMarketCells();
 </script>
 </body>
 </html>"""
