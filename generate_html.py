@@ -580,16 +580,21 @@ updateMarketCells();
 
         district_sections.append(f"""
 <div class="dist" id="dist-{anchor}">
-  <h2>{district}（掲載{len(d_props)}件）</h2>
-  <p style="color:#1a6bd1;font-size:13px">{med_str}</p>
-  <h3>現在の掲載物件</h3>
-  <table>
-  <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
-  <tbody>{prop_rows}</tbody>
-  </table>
-  {rf_section}
-  <p><a href="https://www.reinfolib.mlit.go.jp/" target="_blank">reinfolib で検索 →</a>
-  &nbsp; <a href="properties_list.html">← 物件一覧に戻る</a></p>
+  <h2 data-anchor="{anchor}" onclick="toggleDist(this)">
+    {district}（掲載{len(d_props)}件）
+    <span class="toggle-icon">▼</span>
+  </h2>
+  <div class="dist-body" id="body-{anchor}">
+    <p style="color:#1a6bd1;font-size:13px">{med_str}</p>
+    <h3>現在の掲載物件</h3>
+    <table>
+    <thead><tr><th>評価</th><th>価格</th><th>坪単価</th><th>土地</th><th>建物</th><th>築年月</th><th>物件名</th></tr></thead>
+    <tbody>{prop_rows}</tbody>
+    </table>
+    {rf_section}
+    <p><a href="https://www.reinfolib.mlit.go.jp/" target="_blank">reinfolib で検索 →</a>
+    &nbsp; <a href="properties_list.html">← 物件一覧に戻る</a></p>
+  </div>
 </div><hr>""")
 
     # reinfolib のみのデータがある地区も追加
@@ -632,10 +637,15 @@ updateMarketCells();
         med_str = f"坪単価中央値: <strong>{med}万円/坪</strong>（国交省成約実績{rf_count}件）" if med else ""
         district_sections.append(f"""
 <div class="dist" id="dist-{anchor}">
-  <h2>{d}（掲載物件なし）</h2>
-  <p style="color:#1a6bd1;font-size:13px">{med_str}</p>
-  {rf_section}
-  <p><a href="properties_list.html">← 物件一覧に戻る</a></p>
+  <h2 data-anchor="{anchor}" onclick="toggleDist(this)">
+    {d}（掲載物件なし）
+    <span class="toggle-icon">▼</span>
+  </h2>
+  <div class="dist-body" id="body-{anchor}">
+    <p style="color:#1a6bd1;font-size:13px">{med_str}</p>
+    {rf_section}
+    <p><a href="properties_list.html">← 物件一覧に戻る</a></p>
+  </div>
 </div><hr>""")
 
     all_districts = sorted(set(district_props.keys()) | set(reinfolib_data.keys()))
@@ -644,30 +654,210 @@ updateMarketCells();
         for d in all_districts
     )
 
+    # 四半期別坪単価データ（グラフ用）
+    from collections import defaultdict as _dd
+    all_quarters_data = _dd(list)
+    district_quarters_data = _dd(lambda: _dd(list))
+    for d, v in reinfolib_data.items():
+        for t in v.get("transactions", []):
+            q = t.get("period", "")
+            tp = t.get("tsubo_price")
+            if q and tp:
+                all_quarters_data[q].append(tp)
+                district_quarters_data[d][q].append(tp)
+
+    quarters_sorted = sorted(all_quarters_data.keys())
+    # 高槻市全体の四半期中央値
+    from statistics import median as _med
+    city_series = {q: round(_med(vals), 1) for q, vals in all_quarters_data.items() if vals}
+    # 地区別四半期中央値
+    district_series = {}
+    for d in all_districts:
+        qdata = district_quarters_data.get(d, {})
+        if qdata:
+            district_series[d] = {q: round(_med(vals), 1) for q, vals in qdata.items() if vals}
+
+    chart_data_js = json.dumps({
+        "quarters": quarters_sorted,
+        "city": city_series,
+        "districts": district_series,
+    }, ensure_ascii=False)
+
+    # 短い四半期ラベル: '2020年第1四半期' → '20Q1'
+    import re as _re
+    def short_q(q):
+        m = _re.search(r"(\d{4})年第(\d)四半期", q)
+        return f"'{m.group(1)[2:]}Q{m.group(2)}" if m else q
+    quarters_labels = [short_q(q) for q in quarters_sorted]
+
     market_html = f"""<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <title>町別 成約実績・掲載物件</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <style>
-body{{font-family:sans-serif;font-size:13px;margin:20px}}
+body{{font-family:sans-serif;font-size:13px;margin:20px;max-width:1400px}}
 h1{{font-size:18px}}
-h2{{font-size:15px;margin-top:40px;border-left:4px solid #4a90d9;padding-left:8px}}
+h2{{font-size:15px;margin-top:40px;border-left:4px solid #4a90d9;padding-left:8px;cursor:pointer;user-select:none}}
+h2 .toggle-icon{{float:right;font-size:12px;color:#999}}
 h3{{font-size:13px;color:#555}}
 table{{border-collapse:collapse;width:100%;margin-bottom:12px}}
 th,td{{border:1px solid #ccc;padding:4px 8px}}
 th{{background:#f0f0f0}}
 a{{color:#1a6bd1}}
-.nav{{font-size:11px;line-height:2;background:#f8f8f8;padding:10px;border:1px solid #ddd;border-radius:4px;margin-bottom:20px}}
-.dist{{margin-bottom:20px}}
-hr{{border:none;border-top:1px solid #e0e0e0;margin:24px 0}}
+.nav-wrap{{background:#f8f8f8;border:1px solid #ddd;border-radius:4px;margin-bottom:20px}}
+.nav-header{{padding:8px 12px;cursor:pointer;font-size:12px;font-weight:bold;display:flex;justify-content:space-between;align-items:center}}
+.nav-body{{display:none;padding:8px 12px;font-size:11px;line-height:2;border-top:1px solid #ddd}}
+.nav-body.open{{display:block}}
+.dist-body{{display:none}}
+.dist-body.open{{display:block}}
+hr{{border:none;border-top:1px solid #e0e0e0;margin:16px 0}}
+/* グラフエリア */
+#chart-section{{background:#f8f8f8;border:1px solid #ddd;border-radius:6px;padding:16px;margin-bottom:24px}}
+#chart-section h2{{border:none;margin-top:0;cursor:default}}
+.chart-controls{{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}}
+.tag{{display:inline-flex;align-items:center;gap:4px;background:#e8f0fe;border:1px solid #4a90d9;border-radius:12px;padding:3px 10px;font-size:12px}}
+.tag .rm{{cursor:pointer;color:#c00;font-weight:bold;margin-left:2px}}
+.tag.city-tag{{background:#fff3e0;border-color:#e67e00}}
+#chart-container{{position:relative;height:320px}}
 </style>
 </head>
 <body>
 <h1>町別 成約実績・掲載物件</h1>
 <p><a href="properties_list.html">← 物件一覧に戻る</a></p>
-<div class="nav">{nav_links}</div>
+
+<!-- ナビ（折りたたみ） -->
+<div class="nav-wrap">
+  <div class="nav-header" onclick="toggleNav()">
+    <span>▶ 町一覧ジャンプ（{len(all_districts)}町）</span>
+    <span id="nav-icon">▼ 展開</span>
+  </div>
+  <div class="nav-body" id="nav-body">{nav_links}</div>
+</div>
+
+<!-- 坪単価推移グラフ -->
+<div id="chart-section">
+  <h2 style="cursor:default;border-left:4px solid #e67e00">📈 坪単価推移グラフ（万円/坪）</h2>
+  <div class="chart-controls">
+    <span style="font-size:12px;font-weight:bold">表示中：</span>
+    <span class="tag city-tag" id="tag-高槻市">高槻市全体 <span class="rm" onclick="removeDistrict('高槻市')">❌</span></span>
+    <span id="tags-container"></span>
+    <select id="district-select" style="font-size:12px;padding:4px 8px">
+      <option value="">＋ 町を追加...</option>
+      {''.join(f'<option value="{d}">{d}</option>' for d in all_districts if district_series.get(d))}
+    </select>
+  </div>
+  <div id="chart-container"><canvas id="trendChart"></canvas></div>
+</div>
+
 {''.join(district_sections)}
+
+<script>
+const CHART_DATA = {chart_data_js};
+const LABELS = {json.dumps(quarters_labels, ensure_ascii=False)};
+const QUARTERS = CHART_DATA.quarters;
+const COLORS = ['#e67e00','#1a6bd1','#1a8a1a','#c00','#7b2d8b','#0097a7','#795548','#607d8b','#e91e63','#4caf50'];
+let colorIdx = 1;
+let activeDistricts = ['高槻市'];
+
+function toggleNav() {{
+  const body = document.getElementById('nav-body');
+  const icon = document.getElementById('nav-icon');
+  body.classList.toggle('open');
+  icon.textContent = body.classList.contains('open') ? '▲ 閉じる' : '▼ 展開';
+}}
+
+function toggleDist(el) {{
+  const anchor = el.dataset.anchor;
+  const body = document.getElementById('body-' + anchor);
+  const icon = el.querySelector('.toggle-icon');
+  if (body) {{
+    body.classList.toggle('open');
+    icon.textContent = body.classList.contains('open') ? '▲' : '▼';
+  }}
+}}
+
+// Chart.js セットアップ
+const ctx = document.getElementById('trendChart').getContext('2d');
+const chart = new Chart(ctx, {{
+  type: 'line',
+  data: {{ labels: LABELS, datasets: [] }},
+  options: {{
+    responsive: true, maintainAspectRatio: false,
+    interaction: {{ mode: 'index', intersect: false }},
+    plugins: {{
+      legend: {{ position: 'top', labels: {{ font: {{ size: 12 }} }} }},
+      tooltip: {{ callbacks: {{ label: ctx => ` ${{ctx.dataset.label}}: ${{ctx.parsed.y}}万円/坪` }} }}
+    }},
+    scales: {{
+      x: {{ ticks: {{ font: {{ size: 11 }} }} }},
+      y: {{ title: {{ display: true, text: '万円/坪' }}, ticks: {{ font: {{ size: 11 }} }} }}
+    }}
+  }}
+}});
+
+function getSeriesData(name) {{
+  const src = name === '高槻市' ? CHART_DATA.city : (CHART_DATA.districts[name] || {{}});
+  return QUARTERS.map(q => src[q] ?? null);
+}}
+
+function renderChart() {{
+  chart.data.datasets = activeDistricts.map((name, i) => {{
+    const color = name === '高槻市' ? COLORS[0] : COLORS[1 + (activeDistricts.filter(d=>d!=='高槻市').indexOf(name) % (COLORS.length-1))];
+    return {{
+      label: name === '高槻市' ? '高槻市全体' : name,
+      data: getSeriesData(name),
+      borderColor: color, backgroundColor: color + '22',
+      tension: 0.3, spanGaps: true,
+      borderWidth: name === '高槻市' ? 3 : 2,
+      pointRadius: 3,
+    }};
+  }});
+  chart.update();
+}}
+
+function removeDistrict(name) {{
+  activeDistricts = activeDistricts.filter(d => d !== name);
+  if (name === '高槻市') {{
+    document.getElementById('tag-高槻市').style.display = 'none';
+  }} else {{
+    const tag = document.getElementById('tag-' + name);
+    if (tag) tag.remove();
+  }}
+  renderChart();
+}}
+
+document.getElementById('district-select').addEventListener('change', function() {{
+  const name = this.value;
+  if (!name || activeDistricts.includes(name)) {{ this.value = ''; return; }}
+  activeDistricts.push(name);
+  const tag = document.createElement('span');
+  tag.className = 'tag';
+  tag.id = 'tag-' + name;
+  tag.innerHTML = `${{name}} <span class="rm" onclick="removeDistrict('${{name}}')">❌</span>`;
+  document.getElementById('tags-container').appendChild(tag);
+  this.value = '';
+  renderChart();
+}});
+
+renderChart();
+
+// URLハッシュで直接ジャンプ時は自動展開
+(function() {{
+  const hash = location.hash;
+  if (hash && hash.startsWith('#dist-')) {{
+    const anchor = hash.slice(6);
+    const body = document.getElementById('body-' + anchor);
+    if (body) {{
+      body.classList.add('open');
+      const h2 = document.querySelector('[data-anchor="' + anchor + '"]');
+      if (h2) h2.querySelector('.toggle-icon').textContent = '▲';
+      setTimeout(() => body.parentElement.scrollIntoView({{behavior:'smooth'}}), 100);
+    }}
+  }}
+}})();
+</script>
 </body>
 </html>"""
 
