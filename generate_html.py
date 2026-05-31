@@ -55,6 +55,7 @@ def generate(cfg: dict):
 
     # 期間別の地区坪単価中央値を事前計算
     PERIOD_RANGES = {
+        "2025":      ("2025",),
         "2024-2025": ("2024", "2025"),
         "2023-2025": ("2023", "2024", "2025"),
         "2022-2025": ("2022", "2023", "2024", "2025"),
@@ -172,8 +173,27 @@ def generate(cfg: dict):
                      "good" if score >= 50 else "")
 
         import json as _json
+        # 市場比較を除いたベーススコアとreasons（JS側で期間変更時に再計算）
+        market_reason_prefix = "坪単価:"
+        base_reasons = [r for r in sc["match_reason"] if not r.startswith(market_reason_prefix)]
+        market_pts = sc["match_score"] - sum(
+            {"≤90%": 15, "相場並み": 0}.get(r, 0) for r in sc["match_reason"]
+        )
+        # シンプルに: スコア - 市場比較分を逆算
+        _market_pts_val = next(
+            (r for r in sc["match_reason"] if r.startswith(market_reason_prefix)), None
+        )
+        # 市場比較点数を抽出
+        import re as _re2
+        _mp = 0
+        if _market_pts_val:
+            _m = _re2.search(r'([+-]\d+)点\)', _market_pts_val)
+            if _m: _mp = int(_m.group(1))
+        base_score = score - _mp  # 市場比較を引いたベーススコア
+
         tooltip_lines = sc["match_reason"]
         tooltip_json = _json.dumps(tooltip_lines, ensure_ascii=False).replace("'", "&#39;")
+        base_reasons_json = _json.dumps(base_reasons, ensure_ascii=False).replace("'", "&#39;")
 
         # 築年・徒歩 data属性用
         import re as _re
@@ -198,7 +218,8 @@ def generate(cfg: dict):
         data-address="{address}" data-district="{district}" data-type="{prop_type}"
         data-price="{p['price_man'] or ''}" data-floor="{floor_plan}"
         data-walk="{data_walk}" data-built="{data_built}" data-ldk="{data_ldk}"
-        data-tsubo="{tsubo_raw}" data-anchor="{anchor}">
+        data-tsubo="{tsubo_raw}" data-anchor="{anchor}"
+        data-base-score="{base_score}" data-base-reasons='{base_reasons_json}'>
       <td class="rec">{rec}</td>
       <td class="score" data-reasons='{tooltip_json}' onclick="showScoreCard(this)">{score}</td>
       <td>{land}{land_tsubo}<br><small style="color:#666">{building}</small></td>
@@ -317,7 +338,8 @@ tr.hidden{{display:none}}
 
   <label>相場期間</label>
   <select id="sel-period" onchange="updateMarketCells()">
-    <option value="2024-2025">直近2年（2024-25）</option>
+    <option value="2025">直近1年（2025）</option>
+    <option value="2024-2025" selected>直近2年（2024-25）</option>
     <option value="2023-2025">直近3年（2023-25）</option>
     <option value="2022-2025">直近4年（2022-25）</option>
     <option value="all">全期間（2020-25）</option>
@@ -358,36 +380,73 @@ tr.hidden{{display:none}}
 // 期間別・地区別 成約坪単価中央値
 const MARKET_DATA = {json.dumps(all_period_medians, ensure_ascii=False)};
 
+function calcMarketPts(ratio) {{
+  if (!ratio) return 0;
+  if (ratio <= 0.90) return 15;
+  if (ratio <= 1.00) return 0;
+  if (ratio <= 1.15) return -10;
+  if (ratio <= 1.25) return -20;
+  return -30;
+}}
+
 function updateMarketCells() {{
   const period = document.getElementById('sel-period').value;
   const medians = MARKET_DATA[period] || {{}};
   document.querySelectorAll('#main-table tbody tr').forEach(tr => {{
     const anchor = tr.dataset.anchor || '';
     const tsuboVal = parseFloat(tr.dataset.tsubo) || 0;
-    const med = medians[anchor] || medians[decodeURIComponent(anchor)];
-    const cell = tr.querySelector('td.market-val');
-    if (!cell) return;
-    if (med) {{
-      const ratio = tsuboVal > 0 ? tsuboVal / med : null;
-      let pctHtml = '';
-      if (ratio) {{
-        const pct = Math.round((ratio - 1) * 100);
-        const sign = pct >= 0 ? '+' : '';
-        const color = ratio <= 0.90 ? '#1a8a1a' : ratio <= 1.00 ? '#555' : ratio <= 1.15 ? '#b86000' : '#c00';
-        pctHtml = ` <span style="color:${{color}};font-size:11px">(${{sign}}${{pct}}%)</span>`;
-        // 坪単価セルの%も更新
-        const tsuboCell = tr.querySelector('td.tsubo-val');
-        if (tsuboCell && tsuboVal > 0) {{
-          tsuboCell.innerHTML = `${{tsuboVal.toFixed(1)}}万円/坪${{pctHtml}}`;
-        }}
-      }}
-      cell.innerHTML = `<a href="market.html#dist-${{anchor}}" target="_blank" style="color:#1a6bd1">${{med.toFixed(1)}}万円/坪</a>`;
+    const baseScore = parseInt(tr.dataset.baseScore) || 0;
+    const excl = tr.dataset.excl === '1';
+    const med = medians[anchor];
+    const marketCell = tr.querySelector('td.market-val');
+    const tsuboCell = tr.querySelector('td.tsubo-val');
+    const scoreCell = tr.querySelector('td.score');
+    if (!marketCell) return;
+
+    let marketPts = 0;
+    let marketReason = '';
+
+    if (med && tsuboVal) {{
+      const ratio = tsuboVal / med;
+      marketPts = calcMarketPts(ratio);
+      const pct = Math.round((ratio - 1) * 100);
+      const sign = pct >= 0 ? '+' : '';
+      const pctColor = ratio <= 0.90 ? '#1a8a1a' : ratio <= 1.00 ? '#555' : ratio <= 1.15 ? '#b86000' : '#c00';
+      const pctHtml = `<span style="color:${{pctColor}};font-size:11px">(${{sign}}${{pct}}%)</span>`;
+      const ptSign = marketPts >= 0 ? '+' : '';
+      if (tsuboCell) tsuboCell.innerHTML = `${{tsuboVal.toFixed(1)}}万円/坪 ${{pctHtml}}`;
+      marketCell.innerHTML = `<a href="market.html#dist-${{anchor}}" target="_blank" style="color:#1a6bd1">${{med.toFixed(1)}}万円/坪</a>`;
+      const label = ratio <= 0.90 ? `相場より${{Math.abs(pct)}}%安い` : ratio <= 1.00 ? '相場並み' : `相場より${{pct}}%割高`;
+      marketReason = `坪単価: ${{tsuboVal.toFixed(1)}}万円/坪（相場${{med.toFixed(1)}}万円/坪、${{label}} → ${{ptSign}}${{marketPts}}点）`;
     }} else {{
-      cell.innerHTML = anchor
+      if (tsuboVal && tsuboCell) tsuboCell.innerHTML = `${{tsuboVal.toFixed(1)}}万円/坪`;
+      marketCell.innerHTML = anchor
         ? `<a href="market.html#dist-${{anchor}}" target="_blank" style="color:#bbb;font-size:11px">成約実績↓</a>`
         : '<span style="color:#bbb">—</span>';
+      marketReason = tsuboVal ? `坪単価: ${{tsuboVal.toFixed(1)}}万円/坪（相場データなし）` : '';
+    }}
+
+    // スコア再計算
+    if (!excl) {{
+      const newScore = Math.max(0, Math.min(100, baseScore + marketPts));
+      if (scoreCell) scoreCell.textContent = newScore;
+
+      // 行クラス更新
+      tr.classList.remove('great','good');
+      if (newScore >= 70) tr.classList.add('great');
+      else if (newScore >= 50) tr.classList.add('good');
+
+      // score-data-score更新（フィルター用）
+      tr.dataset.score = newScore;
+
+      // reasons更新（スコアカード用）
+      const baseReasons = JSON.parse(tr.dataset.baseReasons || '[]');
+      const newReasons = marketReason ? [...baseReasons, marketReason] : baseReasons;
+      scoreCell.dataset.reasons = JSON.stringify(newReasons);
     }}
   }});
+  // フィルターも再適用（スコアが変わるので）
+  if (typeof applyFilters === 'function') applyFilters();
 }}
 
 function showGroundRules() {{
