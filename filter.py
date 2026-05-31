@@ -72,23 +72,8 @@ def score_property(prop: dict, cfg: dict) -> dict:
         }
 
     # ─── 1. 駅距離（最大30点）───
-    if dist_jr_m is not None:
-        if dist_jr_m <= 600:
-            pts = 30
-        elif dist_jr_m <= 800:
-            pts = 27
-        elif dist_jr_m <= 1000:
-            pts = 25
-        elif dist_jr_m <= 1250:
-            pts = 15
-        elif dist_jr_m <= 1500:
-            pts = 5
-        else:
-            pts = 0
-        score += pts
-        reasons.append(f"JR高槻駅: 直線{int(dist_jr_m)}m・推定徒歩{est_walk_jr}分 → +{pts}点")
-    elif est_walk_jr is not None:
-        # lat/lon がない場合は SUUMO記載の徒歩分数で代替
+    # SUUMO記載の正確な徒歩分数を最優先で評価
+    if est_walk_jr is not None:
         if est_walk_jr <= 7:
             pts = 30
         elif est_walk_jr <= 10:
@@ -103,6 +88,23 @@ def score_property(prop: dict, cfg: dict) -> dict:
             pts = 0
         score += pts
         reasons.append(f"JR高槻駅: SUUMO記載徒歩{est_walk_jr}分 → +{pts}点")
+    # SUUMOの徒歩分数が取れなかった場合のみ、直線距離（係数1.1）で代替
+    elif dist_jr_m is not None:
+        calc_walk = round(dist_jr_m * 1.1 / 80)
+        if dist_jr_m <= 600:
+            pts = 30
+        elif dist_jr_m <= 800:
+            pts = 27
+        elif dist_jr_m <= 1000:
+            pts = 25
+        elif dist_jr_m <= 1250:
+            pts = 15
+        elif dist_jr_m <= 1500:
+            pts = 5
+        else:
+            pts = 0
+        score += pts
+        reasons.append(f"JR高槻駅: 直線{int(dist_jr_m)}m・推定徒歩{calc_walk}分 → +{pts}点")
 
     # ─── 2. 建物面積（最大15点）───
     building_m2 = prop.get("building_area_m2")
@@ -209,24 +211,11 @@ def score_property(prop: dict, cfg: dict) -> dict:
         score += 5
         reasons.append(f"接道: {'・'.join(matched)} → +5点")
 
-    # ─── 7. リフォームの質（+15 〜 -10点）───
-    reform_full = ["水回り新調", "水回り交換", "外壁塗装", "フルリフォーム"]
-    reform_partial = ["クロス張替", "畳替え"]
-    if any(w in road_searchable for w in reform_full):
-        matched = [w for w in reform_full if w in road_searchable]
-        score += 15
-        reasons.append(f"リフォーム: {'・'.join(matched)} → +15点")
-    elif any(w in road_searchable for w in reform_partial):
-        matched = [w for w in reform_partial if w in road_searchable]
-        score += 5
-        reasons.append(f"リフォーム: {'・'.join(matched)}（表面のみ） → +5点")
-    elif building_m2_check and built_year_match:
-        built_yr = int(built_year_match.group(1))
-        import datetime
-        age = datetime.date.today().year - built_yr
-        if age >= 15:
-            score += -10
-            reasons.append(f"リフォーム: 築{age}年・リフォーム記載なし → -10点")
+    # ─── 7. リフォームの質（スクレイピング対応後に有効化予定）───
+    # TODO: reform_info フィールド取得後に有効化
+    # reform_full = ["水回り新調", "水回り交換", "外壁塗装", "フルリフォーム"]
+    # reform_partial = ["クロス張替", "畳替え"]
+    pass
 
     # ─── 8. 周辺環境（+10 〜 -15点）───
     env_pos = ["スーパー徒歩", "ライフ徒歩", "万代徒歩", "アルプラ徒歩"]
