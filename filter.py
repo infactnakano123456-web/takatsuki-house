@@ -77,36 +77,36 @@ def score_property(prop: dict, cfg: dict) -> dict:
     # SUUMO記載の正確な徒歩分数を最優先で評価
     if est_walk_jr is not None:
         if est_walk_jr <= 7:
-            pts = 30
+            pts = 40
         elif est_walk_jr <= 10:
-            pts = 27
+            pts = 35
         elif est_walk_jr <= 12:
-            pts = 25
+            pts = 20
         elif est_walk_jr <= 15:
-            pts = 15
+            pts = 10
         elif est_walk_jr <= 18:
-            pts = 5
+            pts = -5
         else:
-            pts = 0
+            pts = -10
         score += pts
-        reasons.append(f"JR高槻駅: SUUMO記載徒歩{est_walk_jr}分 → +{pts}点")
+        reasons.append(f"JR高槻駅: SUUMO記載徒歩{est_walk_jr}分 → {'+' if pts >= 0 else ''}{pts}点")
     # SUUMOの徒歩分数が取れなかった場合のみ、直線距離（係数1.1）で代替
     elif dist_jr_m is not None:
         calc_walk = round(dist_jr_m * 1.1 / 80)
         if dist_jr_m <= 600:
-            pts = 30
+            pts = 40
         elif dist_jr_m <= 800:
-            pts = 27
+            pts = 35
         elif dist_jr_m <= 1000:
-            pts = 25
+            pts = 20
         elif dist_jr_m <= 1250:
-            pts = 15
+            pts = 10
         elif dist_jr_m <= 1500:
-            pts = 5
+            pts = -5
         else:
-            pts = 0
+            pts = -10
         score += pts
-        reasons.append(f"JR高槻駅: 直線{int(dist_jr_m)}m・推定徒歩{calc_walk}分 → +{pts}点")
+        reasons.append(f"JR高槻駅: 直線{int(dist_jr_m)}m・推定徒歩{calc_walk}分 → {'+' if pts >= 0 else ''}{pts}点")
 
     # ─── 2. 土地のみペナルティ ───
     building_m2 = prop.get("building_area_m2")

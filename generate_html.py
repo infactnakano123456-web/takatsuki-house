@@ -307,12 +307,13 @@ tr.hidden{{display:none}}
 function showGroundRules() {{
   document.getElementById('score-card-title').textContent = '採点ロジック（Ground Rules）';
   document.getElementById('score-card-list').innerHTML = `
-    <li><b>🚶 JR高槻駅距離（最大40点）</b><ul>
+    <li><b>🚶 JR高槻駅距離（最大+40 / 最小−10点）</b><ul>
       <li>≤600m（≈7分）→ +40</li>
       <li>≤800m（≈10分）→ +35</li>
-      <li>≤1000m（≈12分）→ +25</li>
+      <li>≤1000m（≈12分）→ +20</li>
       <li>≤1250m（≈15分）→ +10</li>
-      <li>1250m超 → 0</li>
+      <li>≤1500m（≈18分）→ −5</li>
+      <li>1500m超 → −10</li>
     </ul></li>
     <li><b>🏠 建物面積（最大15点）</b><ul>
       <li>≥90㎡ → +15 / ≥80㎡ → +13 / ≥70㎡ → +8 / ≥60㎡ → +5 / 60㎡未満 → 0</li>
