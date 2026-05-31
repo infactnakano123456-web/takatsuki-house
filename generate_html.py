@@ -158,6 +158,9 @@ def generate(cfg: dict):
         fp_m = _re.search(r"(\d+)[SLDK]", floor_plan)
         data_ldk = fp_m.group(1) if fp_m else "0"
 
+        # 間取り表示：土地のみなら「土地」
+        floor_display = floor_plan if floor_plan != "—" else ("土地" if _is_land_only else "—")
+
         # data属性でフィルタ用
         rows_html.append(f"""
     <tr class="{row_class}" data-score="{score}" data-excl="{'1' if excl else '0'}"
@@ -166,14 +169,14 @@ def generate(cfg: dict):
         data-walk="{data_walk}" data-built="{data_built}" data-ldk="{data_ldk}">
       <td class="rec">{rec}</td>
       <td class="score" data-reasons='{tooltip_json}' onclick="showScoreCard(this)">{score}</td>
+      <td>{land}{land_tsubo}<br><small style="color:#666">{building}</small></td>
+      <td>{floor_display}</td>
       <td class="price">{price}</td>
       <td class="tsubo">{tsubo_cell}</td>
       <td class="tsubo">{market_cell}</td>
+      <td>{built}</td>
       <td>{walk_jr}<br><small style="color:#999">{walk_sub}</small></td>
       <td>{dist_jr}</td>
-      <td>{floor_plan}</td>
-      <td>{land}{land_tsubo}<br><small>{building}</small></td>
-      <td>{built}</td>
       <td class="addr">{district_cell}<br><small>{address}</small></td>
       <td><a href="{p['url']}" target="_blank">物件ページ</a></td>
     </tr>""")
@@ -292,10 +295,18 @@ tr.hidden{{display:none}}
 <table id="main-table">
 <thead>
 <tr>
-  <th>評価</th><th style="cursor:pointer;text-decoration:underline dotted #999" onclick="showGroundRules()" title="採点ロジックを表示">点 ℹ️</th><th>価格</th><th>坪単価</th><th>相場<br>坪単価</th>
-  <th>徒歩(JR推定<br>/SUUMO)</th><th>直線距離</th>
-  <th>間取</th><th>土地(坪)<br>建物</th>
-  <th>築年月</th><th>町名 / 住所</th><th>物件ページ</th>
+  <th>評価</th>
+  <th style="cursor:pointer;text-decoration:underline dotted #999" onclick="showGroundRules()" title="採点ロジックを表示">点 ℹ️</th>
+  <th>土地(坪)<br><small>建物</small></th>
+  <th>間取り</th>
+  <th>価格</th>
+  <th>坪単価</th>
+  <th>相場<br>坪単価</th>
+  <th>築年月</th>
+  <th>徒歩<br><small>推定</small></th>
+  <th>直線距離</th>
+  <th>町名 / 住所</th>
+  <th>物件ページ</th>
 </tr>
 </thead>
 <tbody>
