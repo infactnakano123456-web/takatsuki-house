@@ -81,7 +81,16 @@ def generate(cfg: dict):
         tsubo_val = sc.get("tsubo_price")
         tsubo_price = f"{tsubo_val:.1f}万円/坪" if tsubo_val else "—"
         walk_suumo = f"{p['walk_minutes']}分" if p["walk_minutes"] else "—"
-        walk_jr = f"≈{p['est_walk_jr_min']}分" if p["est_walk_jr_min"] else "—"
+        # 表示：SUUMO公式があればそれを主表示、計算値はサブ表示
+        if p["walk_minutes"]:
+            walk_jr = f"SUUMO:{p['walk_minutes']}分"
+            walk_sub = f"推定:{p['est_walk_jr_min']}分" if p["est_walk_jr_min"] else ""
+        elif p["est_walk_jr_min"]:
+            walk_jr = f"推定:{p['est_walk_jr_min']}分"
+            walk_sub = ""
+        else:
+            walk_jr = "—"
+            walk_sub = ""
         dist_jr = f"{p['dist_jr_m']:.0f}m" if p["dist_jr_m"] else "—"
         land = f"{p['land_area_m2']:.1f}㎡" if p["land_area_m2"] else "—"
         land_tsubo = f"({p['land_area_tsubo']:.1f}坪)" if p["land_area_tsubo"] else ""
@@ -137,7 +146,7 @@ def generate(cfg: dict):
       <td class="price">{price}</td>
       <td class="tsubo">{tsubo_cell}</td>
       <td class="tsubo">{market_cell}</td>
-      <td>{walk_jr}<br><small>SUUMO:{walk_suumo}</small></td>
+      <td>{walk_jr}<br><small style="color:#999">{walk_sub}</small></td>
       <td>{dist_jr}</td>
       <td>{floor_plan}</td>
       <td>{land}{land_tsubo}<br><small>{building}</small></td>

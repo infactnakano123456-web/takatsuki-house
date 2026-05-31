@@ -45,7 +45,9 @@ def score_property(prop: dict, cfg: dict) -> dict:
 
     # ─── ジオ除外 ───
     dist_jr_m = prop.get("dist_jr_m")
-    est_walk_jr = prop.get("est_walk_jr_min")
+    # walk_minutes = SUUMO公式掲載の徒歩分数（最優先）
+    # est_walk_jr_min = 座標から計算した推定値（フォールバック）
+    est_walk_jr = prop.get("walk_minutes") or prop.get("est_walk_jr_min")
     if dist_jr_m is not None and dist_jr_m > max_dist_m:
         geo_excluded = True
         is_excluded = True
