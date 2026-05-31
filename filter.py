@@ -111,10 +111,10 @@ def score_property(prop: dict, cfg: dict) -> dict:
     # ─── 2. 土地のみペナルティ ───
     building_m2 = prop.get("building_area_m2")
     prop_type = prop.get("property_type") or ""
-    is_land_only = (not building_m2 or building_m2 == 0) and ("土地" in prop_type or not prop_type)
+    is_land_only = not building_m2  # 建物面積が取れない = 土地のみとみなす
     if is_land_only:
         score += -15
-        reasons.append("土地のみ（建物なし） → -15点")
+        reasons.append("土地のみ・建物面積不明 → -15点")
 
     # ─── 3. 建物面積（最大15点）───
     if building_m2:

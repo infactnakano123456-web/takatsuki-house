@@ -147,11 +147,23 @@ def generate(cfg: dict):
         tooltip_lines = sc["match_reason"]
         tooltip_json = _json.dumps(tooltip_lines, ensure_ascii=False).replace("'", "&#39;")
 
+        # 築年・徒歩 data属性用
+        import re as _re
+        _is_land_only = not p.get("building_area_m2")
+        built_year_m = _re.search(r"(\d{4})年", p.get("built_year_month") or "")
+        data_built = built_year_m.group(1) if built_year_m else ("land" if _is_land_only else "")
+        data_walk = p.get("walk_minutes") or p.get("est_walk_jr_min") or ""
+
+        # LDK数値抽出 (3LDK→3, 4DK→4)
+        fp_m = _re.search(r"(\d+)[SLDK]", floor_plan)
+        data_ldk = fp_m.group(1) if fp_m else "0"
+
         # data属性でフィルタ用
         rows_html.append(f"""
     <tr class="{row_class}" data-score="{score}" data-excl="{'1' if excl else '0'}"
         data-address="{address}" data-district="{district}" data-type="{prop_type}"
-        data-price="{p['price_man'] or ''}" data-floor="{floor_plan}">
+        data-price="{p['price_man'] or ''}" data-floor="{floor_plan}"
+        data-walk="{data_walk}" data-built="{data_built}" data-ldk="{data_ldk}">
       <td class="rec">{rec}</td>
       <td class="score" data-reasons='{tooltip_json}' onclick="showScoreCard(this)">{score}</td>
       <td class="price">{price}</td>
@@ -212,7 +224,7 @@ tr.hidden{{display:none}}
 
 <div id="search-bar">
   <label>キーワード</label>
-  <input type="text" id="kw" placeholder="町名・間取・住所など" style="width:180px">
+  <input type="text" id="kw" placeholder="町名・住所など" style="width:140px">
 
   <label>評価</label>
   <select id="sel-rec">
@@ -237,6 +249,35 @@ tr.hidden{{display:none}}
     <option value="5000">5000万円以下</option>
     <option value="6000">6000万円以下</option>
     <option value="7000">7000万円以下</option>
+  </select>
+
+  <label>駅徒歩</label>
+  <select id="sel-walk">
+    <option value="">指定なし</option>
+    <option value="7">〜7分</option>
+    <option value="10">〜10分</option>
+    <option value="12">〜12分</option>
+    <option value="15">〜15分</option>
+    <option value="20">〜20分</option>
+  </select>
+
+  <label>間取り</label>
+  <select id="sel-floor">
+    <option value="">すべて</option>
+    <option value="1LDK">1LDK以上</option>
+    <option value="2LDK">2LDK以上</option>
+    <option value="3LDK">3LDK以上</option>
+    <option value="4LDK">4LDK以上</option>
+  </select>
+
+  <label>築年数</label>
+  <select id="sel-built">
+    <option value="">指定なし</option>
+    <option value="2020">2020年以降</option>
+    <option value="2015">2015年以降</option>
+    <option value="2010">2010年以降</option>
+    <option value="2000">2000年以降</option>
+    <option value="land">土地のみ</option>
   </select>
 
   <button onclick="resetFilters()" style="font-size:12px;padding:4px 10px">リセット</button>
@@ -331,15 +372,20 @@ function applyFilters() {{
   const rec = document.getElementById('sel-rec').value;
   const typ = document.getElementById('sel-type').value;
   const maxPrice = parseInt(document.getElementById('sel-price').value) || Infinity;
+  const maxWalk = parseInt(document.getElementById('sel-walk').value) || Infinity;
+  const minLdk = parseInt(document.getElementById('sel-floor').value) || 0;
+  const builtFilter = document.getElementById('sel-built').value;
 
   let shown = 0;
   document.querySelectorAll('#main-table tbody tr').forEach(tr => {{
     const address = (tr.dataset.address + ' ' + tr.dataset.district + ' ' + tr.dataset.floor).toLowerCase();
-    const score = parseInt(tr.dataset.score);
     const excl = tr.dataset.excl === '1';
     const recCell = tr.querySelector('td.rec').textContent.trim();
     const price = parseInt(tr.dataset.price) || 0;
-    const type = tr.dataset.type;
+    const type = tr.dataset.type || '';
+    const walk = parseInt(tr.dataset.walk) || 999;
+    const built = tr.dataset.built || '';
+    const ldk = parseInt(tr.dataset.ldk) || 0;
 
     let hide = false;
     if (kw && !address.includes(kw)) hide = true;
@@ -348,6 +394,12 @@ function applyFilters() {{
     if (rec === '◎○△' && (excl || !['◎','○','△'].includes(recCell))) hide = true;
     if (typ && !type.includes(typ)) hide = true;
     if (maxPrice < Infinity && price > maxPrice) hide = true;
+    if (maxWalk < Infinity && walk > maxWalk) hide = true;
+    if (minLdk > 0 && ldk < minLdk) hide = true;
+    if (builtFilter === 'land' && built !== 'land') hide = true;
+    else if (builtFilter && builtFilter !== 'land') {{
+      if (!built || built === 'land' || parseInt(built) < parseInt(builtFilter)) hide = true;
+    }}
 
     tr.classList.toggle('hidden', hide);
     if (!hide) shown++;
@@ -356,14 +408,14 @@ function applyFilters() {{
 }}
 
 function resetFilters() {{
-  ['kw','sel-rec','sel-type','sel-price'].forEach(id => {{
+  ['kw','sel-rec','sel-type','sel-price','sel-walk','sel-floor','sel-built'].forEach(id => {{
     const el = document.getElementById(id);
     el.tagName === 'INPUT' ? el.value = '' : el.selectedIndex = 0;
   }});
   applyFilters();
 }}
 
-['kw','sel-rec','sel-type','sel-price'].forEach(id =>
+['kw','sel-rec','sel-type','sel-price','sel-walk','sel-floor','sel-built'].forEach(id =>
   document.getElementById(id).addEventListener('input', applyFilters)
 );
 applyFilters();
