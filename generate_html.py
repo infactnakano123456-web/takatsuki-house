@@ -220,7 +220,7 @@ tr.hidden{{display:none}}
   <h3 id="score-card-title">スコア内訳</h3>
   <ul id="score-card-list"></ul>
 </div>
-<h1>JR高槻駅周辺 物件リスト（<span id="shown-count">{len(scored)}</span>件 / 全{len(scored)}件）<small style="color:#999;font-size:12px;font-weight:normal">　重複{dup_count}件を非表示</small></h1>
+<h1>JR高槻駅周辺 物件リスト（<span id="shown-count">{len(scored)}</span>件 / 全{len(scored)}件）</h1>
 
 <div id="search-bar">
   <label>キーワード</label>
@@ -326,10 +326,8 @@ function showGroundRules() {{
     </ul></li>
     <li><b>🏗️ 築年数（最大+15 / 最小−15点）</b><ul>
       <li>2025年〜 → +15 / 2020〜 → +12 / 2015〜 → +10 / 2010〜 → +7 / 2000〜 → +5</li>
-      <li>1981〜1999年 → 0 / 〜1980年（旧耐震）→ −15 / 土地のみはスコアなし</li>
-    </ul></li>
-    <li><b>🏚️ 土地のみペナルティ</b><ul>
-      <li>建物なし（土地のみ）→ −15点</li>
+      <li>1981〜1999年 → 0 / 〜1980年（旧耐震）→ −15</li>
+      <li>建物なし（土地のみ）→ 築年スコアなし＋別途 −15点ペナルティ</li>
     </ul></li>
     <li><b>🛣️ 接道・道路幅（+5 〜 −15点）</b><ul>
       <li>セットバック・4m未満・私道負担 → −15 / 前面道路6m以上・公道6m → +5</li>
@@ -341,8 +339,8 @@ function showGroundRules() {{
       <li>スーパー徒歩5分以内（ライフ・万代・アルプラ等） → +10</li>
       <li>坂あり・傾斜 → −15</li>
     </ul></li>
-    <li><b>🌳 安満遺跡公園（最大10点）</b><ul>
-      <li>≤300m → +10 / ≤600m → +7 / ≤1000m → +5</li>
+    <li><b>🌳 安満遺跡公園（最大15点）</b><ul>
+      <li>≤300m → +15 / ≤600m → +10 / ≤1000m → +5</li>
     </ul></li>
     <li><b>評価基準：</b> ◎≥70点 / ○≥50点 / △≥30点 / ✕=除外</li>
     <li><b>除外条件：</b> JR高槻駅から1560m超 または 除外キーワード一致</li>

@@ -246,11 +246,11 @@ def score_property(prop: dict, cfg: dict) -> dict:
     if lat and lon:
         dist_aman = _haversine_m(lat, lon, AMAN_LAT, AMAN_LON)
         if dist_aman <= 300:
-            score += 10
-            reasons.append(f"安満遺跡公園: {int(dist_aman)}m圏内 → +10点")
+            score += 15
+            reasons.append(f"安満遺跡公園: {int(dist_aman)}m圏内 → +15点")
         elif dist_aman <= 600:
-            score += 7
-            reasons.append(f"安満遺跡公園: {int(dist_aman)}m → +7点")
+            score += 10
+            reasons.append(f"安満遺跡公園: {int(dist_aman)}m → +10点")
         elif dist_aman <= 1000:
             score += 5
             reasons.append(f"安満遺跡公園: {int(dist_aman)}m → +5点")
