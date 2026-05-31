@@ -108,8 +108,15 @@ def score_property(prop: dict, cfg: dict) -> dict:
         score += pts
         reasons.append(f"JR高槻駅: 直線{int(dist_jr_m)}m・推定徒歩{calc_walk}分 → +{pts}点")
 
-    # ─── 2. 建物面積（最大15点）───
+    # ─── 2. 土地のみペナルティ ───
     building_m2 = prop.get("building_area_m2")
+    prop_type = prop.get("property_type") or ""
+    is_land_only = (not building_m2 or building_m2 == 0) and ("土地" in prop_type or not prop_type)
+    if is_land_only:
+        score += -15
+        reasons.append("土地のみ（建物なし） → -15点")
+
+    # ─── 3. 建物面積（最大15点）───
     if building_m2:
         if building_m2 >= 90:
             pts = 15
@@ -177,20 +184,22 @@ def score_property(prop: dict, cfg: dict) -> dict:
     built_year_match = re.search(r"(\d{4})年", built) if built else None
     if built_year_match and building_m2_check:
         built_year = int(built_year_match.group(1))
-        if built_year >= 2020:
+        if built_year >= 2025:
             pts = 15
+        elif built_year >= 2020:
+            pts = 12
         elif built_year >= 2015:
             pts = 10
         elif built_year >= 2010:
-            pts = 8
+            pts = 7
         elif built_year >= 2000:
             pts = 5
         elif built_year >= 1981:
             pts = 0
         else:
-            pts = -10  # 旧耐震
+            pts = -15  # 旧耐震
         score += pts
-        label = "（旧耐震）" if built_year < 1981 else ""
+        label = "（旧耐震基準）" if built_year < 1981 else ""
         reasons.append(f"築年: {built_year}年{label} → {'+' if pts >= 0 else ''}{pts}点")
     elif not building_m2_check:
         reasons.append("土地のみ（築年スコアなし）")
