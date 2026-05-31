@@ -71,16 +71,18 @@ def score_property(prop: dict, cfg: dict) -> dict:
             "tsubo_price": tsubo_price,
         }
 
-    # ─── 1. 駅距離（最大40点）───
+    # ─── 1. 駅距離（最大30点）───
     if dist_jr_m is not None:
         if dist_jr_m <= 600:
-            pts = 40
+            pts = 30
         elif dist_jr_m <= 800:
-            pts = 35
+            pts = 27
         elif dist_jr_m <= 1000:
             pts = 25
         elif dist_jr_m <= 1250:
-            pts = 10
+            pts = 15
+        elif dist_jr_m <= 1500:
+            pts = 5
         else:
             pts = 0
         score += pts
@@ -88,17 +90,19 @@ def score_property(prop: dict, cfg: dict) -> dict:
     elif est_walk_jr is not None:
         # lat/lon がない場合は SUUMO記載の徒歩分数で代替
         if est_walk_jr <= 7:
-            pts = 40
+            pts = 30
         elif est_walk_jr <= 10:
-            pts = 35
+            pts = 27
         elif est_walk_jr <= 12:
             pts = 25
         elif est_walk_jr <= 15:
-            pts = 10
+            pts = 15
+        elif est_walk_jr <= 18:
+            pts = 5
         else:
             pts = 0
         score += pts
-        reasons.append(f"JR高槻駅: 推定徒歩{est_walk_jr}分 → +{pts}点")
+        reasons.append(f"JR高槻駅: SUUMO記載徒歩{est_walk_jr}分 → +{pts}点")
 
     # ─── 2. 建物面積（最大15点）───
     building_m2 = prop.get("building_area_m2")
