@@ -170,8 +170,11 @@ def score_property(prop: dict, cfg: dict) -> dict:
         elif ratio <= 1.15:
             pts = -10
             label = f"相場より{int((ratio-1)*100)}%高め → {pts}点"
-        else:
+        elif ratio <= 1.25:
             pts = -20
+            label = f"相場より{int((ratio-1)*100)}%割高 → {pts}点"
+        else:
+            pts = -30
             label = f"相場より{int((ratio-1)*100)}%割高 → {pts}点"
         score += pts
         reasons.append(f"坪単価: {tsubo_price:.1f}万円/坪（相場{market_tsubo:.1f}万円/坪、{label}）")
